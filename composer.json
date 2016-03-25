@@ -1,0 +1,29 @@
+{
+  "name": "axiles89/yii2-coordinator",
+  "description": "Coordinator for yii2 sharding",
+  "keywords": [
+    "php",
+    "yii2",
+    "sharding",
+    "coordinator",
+    "db"
+  ],
+  "type": "library",
+  "license": "Public Domain",
+  "authors": [
+    {
+      "name": "Kyshnerev",
+      "email": "DIMKYSH@MAIL.RU"
+    }
+  ],
+  "require": {
+    "php": ">= 5.4",
+    "yiisoft/yii2": ">=2.0.5",
+    "yiisoft/yii2-redis": "~2.0.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "axiles89\\coordinator\\": "lib/"
+    }
+  }
+}

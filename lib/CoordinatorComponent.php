@@ -64,7 +64,7 @@ class CoordinatorComponent extends Component implements ICoordinatorComponent
         $data = (!is_array($data)) ? [$data] : $data;
 
         if (!$data) {
-            return $db;
+            return [];
         }
 
         $number = [];
@@ -75,7 +75,7 @@ class CoordinatorComponent extends Component implements ICoordinatorComponent
         }
 
         if (!$params) {
-            return $db;
+            return [];
         }
 
         $result = array_map(function(&$value) {

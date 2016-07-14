@@ -9,7 +9,6 @@
 
 namespace axiles89\coordinator;
 
-
 use yii\base\Component;
 use yii\base\InvalidConfigException;
 
@@ -17,7 +16,7 @@ use yii\base\InvalidConfigException;
  * Class FunctionCoordinator
  * @package axiles89\coordinator
  */
-class FunctionCoordinator  extends Component implements ICoordinator
+class FunctionCoordinator extends Component implements ICoordinator
 {
     /**
      * @var
@@ -27,11 +26,12 @@ class FunctionCoordinator  extends Component implements ICoordinator
     /**
      * @throws InvalidConfigException
      */
-    public function init() {
+    public function init()
+    {
         parent::init();
 
         if (!$this->function or !is_callable($this->function)) {
-            throw new InvalidConfigException("Please set callable function for coordinator component");
+            throw new InvalidConfigException('Please set callable function for coordinator component');
         }
     }
 
@@ -39,7 +39,8 @@ class FunctionCoordinator  extends Component implements ICoordinator
      * @param array $data
      * @return array
      */
-    public function execute(array $data) {
+    public function execute(array $data)
+    {
         $result = [];
 
         foreach ($data as $value) {

@@ -37,21 +37,22 @@ class RedisCoordinator extends Component implements ICoordinator
      * @throws InvalidConfigException
      * @throws \yii\base\InvalidConfigException
      */
-    public function init() {
+    public function init()
+    {
         parent::init();
 
         if (!$this->hashName) {
-            throw new InvalidCallException("Please set hashName for coordinator component");
+            throw new InvalidCallException('Please set hashName for coordinator component');
         }
 
         if (!$this->connect) {
-            throw new InvalidConfigException("Please set connect for coordinator component");
+            throw new InvalidConfigException('Please set connect for coordinator component');
         }
 
         $this->db = \Yii::createObject($this->connect);
 
         if (!$this->db instanceof Connection) {
-            throw new InvalidConfigException("Component coordinator not implements redis Connection interface.");
+            throw new InvalidConfigException('Component coordinator not implements redis Connection interface.');
         }
     }
 
@@ -59,7 +60,8 @@ class RedisCoordinator extends Component implements ICoordinator
      * @param array $data
      * @return array
      */
-    public function execute(array $data) {
+    public function execute(array $data)
+    {
         $result = [];
 
         if (!$data) {

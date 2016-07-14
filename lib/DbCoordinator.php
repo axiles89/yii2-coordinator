@@ -9,7 +9,6 @@
 
 namespace axiles89\coordinator;
 
-
 use yii\base\Component;
 use yii\base\InvalidConfigException;
 use yii\db\Connection;
@@ -36,21 +35,26 @@ class DbCoordinator extends Component implements ICoordinator
     /**
      * @throws InvalidConfigException
      */
-    public function init() {
+    public function init()
+    {
         parent::init();
 
-        if (!$this->table or !isset($this->table['name']) or !isset($this->table['columnSearch']) or !isset($this->table['columnResult'])) {
-            throw new InvalidConfigException("Please set table for coordinator component");
+        if (!$this->table
+            || !array_key_exists('name', $this->table)
+            || !array_key_exists('columnSearch', $this->table)
+            || !array_key_exists('columnResult', $this->table)
+        ) {
+            throw new InvalidConfigException('Please set table for coordinator component');
         }
 
         if (!$this->connect) {
-            throw new InvalidConfigException("Please set connect for coordinator component");
+            throw new InvalidConfigException('Please set connect for coordinator component');
         }
 
         $this->db = \Yii::createObject($this->connect);
 
         if (!$this->db instanceof Connection) {
-            throw new InvalidConfigException("Component coordinator not implements Connection interface.");
+            throw new InvalidConfigException('Component coordinator not implements Connection interface.');
         }
     }
 
@@ -58,14 +62,16 @@ class DbCoordinator extends Component implements ICoordinator
      * @param array $data
      * @return array
      */
-    public function execute(array $data) {
+    public
+    function execute(array $data)
+    {
         $result = [];
 
         if (!$data) {
             return $result;
         }
 
-        $return = $this->db->createCommand("SELECT {$this->table['columnResult']} FROM {$this->table['name']} WHERE {$this->table['columnSearch']} IN (".implode(",", $data).")")
+        $return = $this->db->createCommand("SELECT {$this->table['columnResult']} FROM {$this->table['name']} WHERE {$this->table['columnSearch']} IN (" . implode(',', $data) . ')')
             ->queryAll();
 
         foreach ($return as $value) {

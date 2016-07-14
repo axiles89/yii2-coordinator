@@ -26,7 +26,7 @@ class CoordinatorComponent extends Component implements ICoordinatorComponent
     /**
      * @var string
      */
-    public $prefix = "db";
+    public $prefix = '';
     /**
      * @var array
      */
@@ -35,18 +35,19 @@ class CoordinatorComponent extends Component implements ICoordinatorComponent
     /**
      * @throws InvalidConfigException
      */
-    public function init() {
+    public function init()
+    {
         parent::init();
 
         if (!$this->component) {
-            throw new InvalidConfigException("Please set component for coordinator");
+            throw new InvalidConfigException('Please set component for coordinator');
         }
 
         foreach ($this->component as $value) {
             $coordinator = \Yii::createObject($value);
 
             if (!$coordinator instanceof ICoordinator) {
-                throw new InvalidConfigException("Component coordinator not implements ICoordinator interface.");
+                throw new InvalidConfigException('Component coordinator not implements ICoordinator interface.');
             }
 
             $this->coordinator[] = $coordinator;
@@ -60,7 +61,8 @@ class CoordinatorComponent extends Component implements ICoordinatorComponent
      * @return array
      * @throws InvalidConfigException
      */
-    public function getShard(array $db, $data) {
+    public function getShard(array $db, $data)
+    {
         $data = (!is_array($data)) ? [$data] : $data;
 
         if (!$data) {
@@ -78,16 +80,16 @@ class CoordinatorComponent extends Component implements ICoordinatorComponent
             return [];
         }
 
-        $result = array_map(function(&$value) {
-            return $this->prefix.$value;
+        $result = array_map(function (&$value) {
+            return $this->prefix . $value;
         }, $params);
 
         $error = array_diff($result, $db);
 
         if ($error) {
-            throw new InvalidConfigException("Not found shard db in db project");
+            throw new InvalidConfigException('Not found shard db in db project');
         }
 
-        return (count($result) == 1) ? $result[0] : $result;
+        return (1 === count($result)) ? $result[0] : $result;
     }
 }
